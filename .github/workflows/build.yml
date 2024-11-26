@@ -19,7 +19,7 @@ jobs:
           podman exec builder dnf groupinstall "RPM Development Tools" -y
           podman exec builder rpmdev-setuptree
           podman exec builder cp /cromite.spec /root/rpmbuild/SPECS/cromite.spec
-          podman exec builder bash -c "cat /root/rpmbuild/SPECS/cromite.spec | grep BuildRequires | cut -f2 -d: | xargs dnf install -y"
+          podman exec builder bash -c "cat /root/rpmbuild/SPECS/cromite.spec | grep BuildRequires | cut -f2 -d: | xargs dnf install --allowerasing -y"
           podman exec builder spectool -gR /root/rpmbuild/SPECS/cromite.spec
           podman exec builder rpmbuild -bb /root/rpmbuild/SPECS/cromite.spec
           podman exec builder cp /root/rpmbuild/RPMS/*/*.rpm /output/output.rpm
