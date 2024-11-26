@@ -2,6 +2,7 @@ Name:           cromite
 Version:        %(curl -s https://api.github.com/repos/uazo/cromite/tags | jq -r '.[0].name' | cut -f2 -dv | cut -f1 -d.)
 Release:        %(curl -s https://api.github.com/repos/uazo/cromite/tags | jq -r '.[0].name' | cut -f2 -dv | cut -f2-4 -d. | cut -f1 -d-)
 Summary:        Secure and private web browser
+BuildRequires:  jq curl
 
 License:        GPL-3.0-only
 URL:            https://www.cromite.org/
