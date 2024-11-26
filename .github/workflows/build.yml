@@ -17,6 +17,7 @@ jobs:
           mkdir output
           podman run --name=builder -di -v ./cromite.spec:/cromite.spec -v ./output:/output quay.io/rockylinux/rockylinux:9
           podman exec builder dnf groupinstall "RPM Development Tools" -y
+          podman exec builder dnf install dnf-plugins-core -y
           podman exec builder rpmdev-setuptree
           podman exec builder cp /cromite.spec /root/rpmbuild/SPECS/cromite.spec
           podman exec builder dnf builddep /root/rpmbuild/SPECS/cromite.spec -y
