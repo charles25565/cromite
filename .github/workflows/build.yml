@@ -1,4 +1,3 @@
-#podman exec builder rpmbuild -bb /root/rpmbuild/SPECS/cromite.spec
 name: Build
 
 on:
@@ -22,7 +21,8 @@ jobs:
           podman exec builder cp /cromite.spec /root/rpmbuild/SPECS/cromite.spec
           podman exec builder bash -c "cat /root/rpmbuild/SPECS/cromite.spec | grep BuildRequires | cut -f2 -d: | xargs dnf install --allowerasing -y"
           podman exec builder spectool -gR /root/rpmbuild/SPECS/cromite.spec
-          podman exec builder cp /root/rpmbuild/RPMS/x86_64/\*.rpm /output/output.rpm
+          podman exec builder rpmbuild -bb /root/rpmbuild/SPECS/cromite.spec
+          podman exec builder bash -c 'cp /root/rpmbuild/RPMS/*/*.rpm /output/output.rpm'
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
